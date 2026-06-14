@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>流量库可视化</title>
+    <link rel="stylesheet" href="traffic-styles.css" />
+    <script src="traffic-data.js" defer></script>
+    <script src="traffic-app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <p class="eyebrow">Traffic Library</p>
+          <h1>流量库</h1>
+        </div>
+        <div class="summary" aria-live="polite">
+          <span id="totalCount">0</span>
+          <span>条案例</span>
+        </div>
+      </header>
+
+      <section class="toolbar" aria-label="筛选工具">
+        <label class="search-box">
+          <span>搜索</span>
+          <input id="searchInput" type="search" placeholder="平台、钩子、冷启动、案例..." autocomplete="off" />
+        </label>
+
+        <label>
+          <span>大分类</span>
+          <select id="categoryFilter"></select>
+        </label>
+
+        <label>
+          <span>细分赛道</span>
+          <select id="subcategoryFilter"></select>
+        </label>
+
+        <label>
+          <span>排序</span>
+          <select id="sortSelect">
+            <option value="desc">最新在前</option>
+            <option value="asc">最旧在前</option>
+          </select>
+        </label>
+
+        <div class="focus-panel" aria-label="字段聚焦">
+          <span>聚焦字段</span>
+          <div id="focusControl" class="segment-control" role="group" aria-label="字段聚焦">
+            <button type="button" data-focus-field="">全部</button>
+            <button class="active field-platform-control" type="button" data-focus-field="引流平台">引流平台</button>
+            <button class="field-hook-control" type="button" data-focus-field="引流钩子">引流钩子</button>
+            <button class="field-start-control" type="button" data-focus-field="冷启动方式">冷启动</button>
+            <button class="field-scale-control" type="button" data-focus-field="规模化路径">规模化</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="content-layout">
+        <aside class="sidebar" aria-label="分类导航">
+          <div class="sidebar-head">
+            <h2>分类导航</h2>
+            <button id="clearFilters" class="ghost-button" type="button">全部</button>
+          </div>
+          <nav id="categoryTree" class="category-tree"></nav>
+        </aside>
+
+        <main class="main-content">
+          <div class="result-bar">
+            <p id="resultInfo">正在加载...</p>
+          </div>
+
+          <section id="cardGrid" class="card-grid field-focus-mode" aria-live="polite"></section>
+
+          <div id="emptyState" class="empty-state" hidden>
+            <h2>没有匹配结果</h2>
+            <p>换一个关键词或清空筛选后再看。</p>
+          </div>
+
+          <div id="errorState" class="empty-state error-state" hidden>
+            <h2>数据加载失败</h2>
+            <p id="errorMessage"></p>
+          </div>
+
+          <div class="load-more-wrap">
+            <button id="loadMoreButton" class="primary-button" type="button" hidden>加载更多</button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <noscript>这个页面需要启用 JavaScript。</noscript>
+  </body>
+</html>
